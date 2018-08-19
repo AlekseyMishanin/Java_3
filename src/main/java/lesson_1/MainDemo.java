@@ -22,6 +22,7 @@ g. Не забываем про метод добавления фрукта в 
 Решение:
 1. Написан метод swapArray
 2. Написан метод convertToArrayList
+3. Создан класс Fruit(и наследники Apple и Orangе), а также обобщенный класс Box
 */
 import java.util.ArrayList;
 import java.util.Arrays;
