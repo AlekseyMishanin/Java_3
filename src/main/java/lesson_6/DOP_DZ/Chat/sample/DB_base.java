@@ -1,4 +1,4 @@
-package lesson_6.DOP_DZ.sample;
+package lesson_6.DOP_DZ.Chat.sample;
 
 //базовый класс модуля доступа к БД
 

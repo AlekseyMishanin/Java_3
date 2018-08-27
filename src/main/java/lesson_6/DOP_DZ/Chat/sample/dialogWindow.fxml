@@ -7,7 +7,7 @@
 <?scenebuilder-stylesheet /css/Style.css?>
 
 <AnchorPane fx:id="anchorPane"
-            fx:controller="lesson_6.DOP_DZ.sample.DialogWindow"
+            fx:controller="lesson_6.DOP_DZ.Chat.sample.DialogWindow"
             xmlns:fx="http://javafx.com/fxml"
             stylesheets="@/css/Style.css">
     <VBox alignment="CENTER">

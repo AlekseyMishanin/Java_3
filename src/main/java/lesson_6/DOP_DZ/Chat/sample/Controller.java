@@ -1,4 +1,4 @@
-package lesson_6.DOP_DZ.sample;
+package lesson_6.DOP_DZ.Chat.sample;
 
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
@@ -345,7 +345,7 @@ public class Controller  {
         String nameTo = clientList.getSelectionModel().getSelectedItem(); //получаем текс выбранной строки
         if(!nameTo.equals(this.nick)){    //сравниваем, чтобы ник получателя не совпадал с ником отправителя
             try {
-                FXMLLoader loader = new FXMLLoader(DialogWindow.class.getResource("/lesson_6/DOP_DZ/sample/dialogWindow.fxml")); //получаем экземпялр FXMLLoader на основе fxml
+                FXMLLoader loader = new FXMLLoader(DialogWindow.class.getResource("/lesson_6/DOP_DZ/Chat/sample/dialogWindow.fxml")); //получаем экземпялр FXMLLoader на основе fxml
                 Parent root = loader.load();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root, 290, 240);

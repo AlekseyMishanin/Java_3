@@ -18,7 +18,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ContextMenu?>
 <BorderPane fx:id="borderpane"
-            fx:controller="lesson_6.DOP_DZ.sample.Controller"
+            fx:controller="lesson_6.DOP_DZ.Chat.sample.Controller"
             xmlns:fx="http://javafx.com/fxml"
             stylesheets="@/css/Style.css">
     <padding>
