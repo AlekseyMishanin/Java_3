@@ -1,22 +1,22 @@
-package lesson_2.Dz;
+package lesson_6.DOP_DZ.sample;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class dao_mysql extends dao_base{
+public class DB_mysql extends DB_base{
 
     private com.mysql.jdbc.Connection connection = null;
 
-    public dao_mysql(){
+    public DB_mysql(){
         super("com.mysql.jdbc.Driver");
     }
 
     @Override
     public void setURL(String host, String database, int port){
-        if (database.length()>0){
+        if(database.length()>0){
             this.url = "jdbc:mysql://" + host + ":" + port + "/" + database;
-        }else {
+        } else {
             this.url = "jdbc:mysql://" + host + ":" + port;
         }
     }
@@ -27,10 +27,13 @@ public class dao_mysql extends dao_base{
     }
 
     @Override
-    public  void Connect (String login, String password){
-        super.Connect(login,password);
+    public void Connect (String login, String password){
+        super.Connect(login, password);
         try{
-            connection = (com.mysql.jdbc.Connection)DriverManager.getConnection(url, properties);
-        }catch (SQLException e){connection=null; e.printStackTrace();}
+            connection = (com.mysql.jdbc.Connection)DriverManager.getConnection(url,properties);
+        } catch (SQLException e){
+            System.err.println("SQLException: code = " + String.valueOf(e.getErrorCode()+ e.getMessage()));
+        }
     }
 }
+

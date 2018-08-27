@@ -1,0 +1,86 @@
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+
+
+<?scenebuilder-stylesheet /css/Style.css?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ContextMenu?>
+<BorderPane fx:id="borderpane"
+            fx:controller="lesson_6.DOP_DZ.sample.Controller"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@/css/Style.css">
+    <padding>
+        <Insets left="40" right="40" top="40" bottom="40"></Insets>
+    </padding>
+    <style>
+        -fx-background-image: url(css/4.png) white;
+        -fx-background-size: stretch;
+    </style>
+    <top>
+        <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
+            <Menu text="Действия">
+                <MenuItem fx:id="menuAuthorization" text="Авторизоваться" onAction="#seeAuthPane"/>
+                <MenuItem fx:id="menuRegistration" text="Зарегистрироваться" onAction="#seeRegPane"/>
+                <MenuItem fx:id="menuList" text="Показать онлайн" onAction="#seeList"/>
+                <MenuItem fx:id="menuExit" text="Выход" onAction="#closeChat"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox alignment="CENTER">
+            <children>
+                <StackPane fx:id="stackPane" VBox.vgrow="ALWAYS" >
+                    <HBox>
+                        <ScrollPane fx:id="scrollpane" prefWidth="260">
+                            <VBox fx:id="vbox" alignment="CENTER" spacing="3" ></VBox>
+                        </ScrollPane>
+                        <ListView fx:id="clientList" visible="false" managed="false" prefWidth="120">
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem fx:id="menuPmChat" text="Приватный чат" onAction="#createPmChat"></MenuItem>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </ListView>
+                    </HBox>
+                </StackPane>
+                <HBox fx:id="loginpassBox">
+                    <VBox alignment="CENTER">
+                        <HBox>
+                            <TextField HBox.hgrow="ALWAYS" promptText="Логин" fx:id="loginField"></TextField>
+                            <PasswordField promptText="Пароль" fx:id="passwordField" onAction="#tryToAuth"></PasswordField>
+                        </HBox>
+                        <Button text="Авторизоваться" fx:id="btnAuth" onAction="#tryToAuth" ></Button>
+                    </VBox>
+                </HBox>
+                <HBox fx:id="chatBox" visible="false" managed="false">
+                    <TextField fx:id="textField" onAction="#sendWsg" HBox.hgrow="ALWAYS" promptText="Введите сообщение..." ></TextField>
+                    <Button onAction="#sendWsg"  fx:id="btn1" prefWidth="40"></Button>
+                </HBox>
+                <VBox fx:id="regBox" visible="false" managed="false" alignment="CENTER">
+                    <HBox>
+                        <TextField HBox.hgrow="ALWAYS" promptText="Логин" fx:id="regLogField"></TextField>
+                        <TextField HBox.hgrow="ALWAYS" promptText="Ник" fx:id="regNickField"></TextField>
+                        <PasswordField promptText="Пароль" fx:id="regPassField" onAction="#addNewUser"></PasswordField>
+                    </HBox>
+                    <Button text="Зарегистрироваться" fx:id="btnReg" onAction="#addNewUser"></Button>
+                </VBox>
+                <ImageView fx:id="gif"></ImageView>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>
+
