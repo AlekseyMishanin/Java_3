@@ -9,7 +9,7 @@
 <AnchorPane fx:id="anchorPane"
             fx:controller="lesson_6.DOP_DZ.Chat.sample.DialogWindow"
             xmlns:fx="http://javafx.com/fxml"
-            stylesheets="@/css/Style.css">
+            stylesheets="@/Style.css">
     <VBox alignment="CENTER">
         <ScrollPane fx:id="scrollpanePw" VBox.vgrow="ALWAYS">
             <VBox fx:id="vboxPw" alignment="CENTER" spacing="3" prefHeight="200.0" prefWidth="260.0"></VBox>

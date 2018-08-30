@@ -3,6 +3,8 @@ package lesson_6.DOP_DZ.Chat.sample;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.*;
+import java.util.logging.*;
+
 
 
 public class ClientHandler implements Runnable{
@@ -14,6 +16,7 @@ public class ClientHandler implements Runnable{
     private AuthService authService = null;
     private String nick = null;
     private Set<String> blackList = null;
+    private static final Logger logger = Logger.getLogger("");
 
 
     public ClientHandler(ServerTCP server, Socket socket, AuthService authService){
@@ -36,6 +39,7 @@ public class ClientHandler implements Runnable{
                 else if(authService.checkNick(tokens[3])){sendMsg("Ник занят.");}
                 else{
                     authService.addUser(tokens[1],tokens[2], tokens[3]);
+                    createLogAddOrRegUser("/addUser", tokens[3]);
                     sendMsg("Регистрация прошла успешно.");
                 }
             }
@@ -46,6 +50,7 @@ public class ClientHandler implements Runnable{
                     userMsg.write("Данный пользователь уже авторизован");   //если пользователь с данным ником зарегистрирован, то выводим сообщение
                 }else if(nickname!=null){
                     userMsg.write("/authok " + nickname);
+                    createLogAddOrRegUser("/authok", nickname);
                     nick = nickname;
                     server.subcribe(this);
                     this.blackList = (HashSet<String>)server.loadBlackList(this); //загружаем черный список
@@ -99,6 +104,7 @@ public class ClientHandler implements Runnable{
                     }
 
                 } else {
+                    createLogSendMessager(nick, inStr);
                     server.broadcastMsg(this, nick + ": " + inStr);
                 }
             }
@@ -130,5 +136,48 @@ public class ClientHandler implements Runnable{
     public String getNick() {
         return nick;
     }
+
+    /**
+     * Метод для логирования регистрации и авторизации пользователей
+     * @param event - событие регистрации/авторизации
+     * @param nick - ник зарегистрированного/авторизованного пользователя
+     * */
+    public void createLogAddOrRegUser(String event, String nick){
+        try {
+            logger.setLevel(Level.SEVERE);
+            Handler handler = null;
+            handler = new FileHandler("logAddOrRegUser.log", 100000,1,true);
+            handler.setLevel(Level.ALL);
+            handler.setFormatter(new SimpleFormatter());
+            logger.addHandler(handler);
+            logger.log(Level.SEVERE,event + " " + nick);
+            logger.removeHandler(handler);
+            handler.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Метод для логирования сообщений пользователей
+     * @param nick - ник авторизованного пользователя
+     * @param message - сообщение пользователя
+     * */
+    public void createLogSendMessager(String nick, String message){
+        try {
+            logger.setLevel(Level.SEVERE);
+            Handler handler = null;
+            handler = new FileHandler("logSendMessage.log", 100000,1,true);
+            handler.setLevel(Level.ALL);
+            handler.setFormatter(new SimpleFormatter());
+            logger.addHandler(handler);
+            logger.log(Level.SEVERE,nick + " " + message);
+            logger.removeHandler(handler);
+            handler.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

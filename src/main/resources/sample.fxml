@@ -20,12 +20,12 @@
 <BorderPane fx:id="borderpane"
             fx:controller="lesson_6.DOP_DZ.Chat.sample.Controller"
             xmlns:fx="http://javafx.com/fxml"
-            stylesheets="@/css/Style.css">
+            stylesheets="@/Style.css">
     <padding>
         <Insets left="40" right="40" top="40" bottom="40"></Insets>
     </padding>
     <style>
-        -fx-background-image: url(css/4.png) white;
+        -fx-background-image: url(4.png) white;
         -fx-background-size: stretch;
     </style>
     <top>

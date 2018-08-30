@@ -1,5 +1,7 @@
 package lesson_6.DOP_DZ.Chat.sample;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +16,7 @@ public class ServerTCP {
     final int PORT = 1501;
     private AuthService authService = null;
 
-    ServerTCP(){
+    public ServerTCP(){
         try {
             authService = new AuthService();
             clients = new Vector<>();
@@ -37,9 +39,7 @@ public class ServerTCP {
             authService.Disconnect(authService.getConnection());
         }
     }
-    public
-
-    void broadcastMsg(ClientHandler from, String msg) {
+    public void broadcastMsg(ClientHandler from, String msg) {
         for (ClientHandler o: clients) {
             if(!o.chackBlackList(from.getNick())){
                 o.sendMsg(msg);
@@ -106,6 +106,38 @@ public class ServerTCP {
         }
     }
 
+    /**Статический метод для тестирования соединения с клиентом. Сервер ожидает сообщение принимает одно
+     * сообщение и отправляет его обратно клиенту. После сервер закрывается.*/
+    public static void testConnect(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ServerSocket serverSocket = null;
+                Socket socket = null;
+                DataInputStream in = null;
+                DataOutputStream out = null;
+                final int PORT = 1501;
+                try {
+                    serverSocket = new ServerSocket(PORT);
+                    socket = serverSocket.accept();
+                    in = new DataInputStream(socket.getInputStream());
+                    out = new DataOutputStream(socket.getOutputStream());
+                    String inStr = in.readUTF();
+                    out.writeUTF(inStr);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if (in != null) in.close();
+                        if (out != null) out.close();
+                        if (socket != null) socket.close();
+                        if (serverSocket != null) serverSocket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }}).start();
+    }
     public static void main(String[] args) {
         new ServerTCP();
     }

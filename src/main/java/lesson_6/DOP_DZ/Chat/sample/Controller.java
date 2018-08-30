@@ -116,6 +116,41 @@ public class Controller  {
         }
     }
 
+    /**Статический метод для тестирования соединения с сервером. Со стороны клиента оправляется сообщение "echo"
+     * если в ответ приходит сообщение "echo" от сервера, то тест прошел успешно (возвращаем true)*/
+    public static boolean testConnect() {
+        Socket socket = null;
+        DataInputStream in= null;
+        DataOutputStream out = null;
+        InetAddress ip = null;
+        final int PORT = 1501;
+        boolean result = false;
+        try {
+            ip = InetAddress.getLocalHost();
+            socket = new Socket(ip, PORT);
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            out.writeUTF("echo");
+            String str = in.readUTF();
+            if (str.equals("echo")) {
+                result = true;
+            } else {
+                result =  false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(in!=null) in.close();
+                if(out!=null) out.close();
+                if(socket!=null) socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+    }
+
     public void connect(){
 
         try{
@@ -345,7 +380,7 @@ public class Controller  {
         String nameTo = clientList.getSelectionModel().getSelectedItem(); //получаем текс выбранной строки
         if(!nameTo.equals(this.nick)){    //сравниваем, чтобы ник получателя не совпадал с ником отправителя
             try {
-                FXMLLoader loader = new FXMLLoader(DialogWindow.class.getResource("/lesson_6/DOP_DZ/Chat/sample/dialogWindow.fxml")); //получаем экземпялр FXMLLoader на основе fxml
+                FXMLLoader loader = new FXMLLoader(DialogWindow.class.getResource("/dialogWindow.fxml")); //получаем экземпялр FXMLLoader на основе fxml
                 Parent root = loader.load();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root, 290, 240);
