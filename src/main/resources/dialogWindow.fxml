@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?scenebuilder-stylesheet /css/Style.css?>
+
+<AnchorPane fx:id="anchorPane"
+            fx:controller="lesson_6.DOP_DZ.Chat.sample.DialogWindow"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@/Style.css">
+    <VBox alignment="CENTER">
+        <ScrollPane fx:id="scrollpanePw" VBox.vgrow="ALWAYS">
+            <VBox fx:id="vboxPw" alignment="CENTER" spacing="3" prefHeight="200.0" prefWidth="260.0"></VBox>
+        </ScrollPane>
+        <HBox>
+            <TextField fx:id="textFieldPw" HBox.hgrow="ALWAYS"></TextField>
+            <Button fx:id="btmPm" text="Отправить" onAction="#sendWsgPw"></Button>
+        </HBox>
+    </VBox>
+</AnchorPane>
